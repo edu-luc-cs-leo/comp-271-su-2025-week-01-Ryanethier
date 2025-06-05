@@ -66,6 +66,62 @@ public class Realistic {
         return result; // smallest element
     } // method getSmallest
 
+
+    /**
+     * 
+     * 
+     * Similar functionality as getSmallest(), but:
+     * -Returns an Integer object
+     * -Returns null if the array is empty
+     * Modifies the array by removing the smallest element
+     * 
+     * @return Integer with the smallest element, or null if array is empty
+     * 
+     */
+
+     public static Integer remove() {
+        // If array is empty, nothing to remove so return null
+        if (arr.length == 0) {
+            return null;
+        }
+
+        // Assume smallest element is the start
+        int smallest_index = 0;
+
+        // Loop through to find index of smallest
+        for(int i = 1; i < arr.length; i++) {
+
+            if (arr[i] < arr[smallest_index]) {
+                smallest_index = i;
+            }
+        }
+
+        // Save smallest element into variable to return later
+        int smallestValue = arr[smallest_index];
+        // Create a new array that will be one element smaller
+        int[] temporary = new int[arr.length - 1];
+
+        //Copy all elements before the smallest into temporary array
+
+        for(int i = 0; i < smallest_index; i++) {
+
+            temporary[i] = arr[i];
+        }
+
+        //Copy all elements after smalelst into temporary array, and shifting them all left by one to close gap
+
+        for(int i = smallest_index; i < arr.length; i++) {
+            temporary[i - 1] = arr[i];
+        }
+        
+        //Replace original array with the new one
+        arr = temporary;
+
+        //Return smallest value
+        return smallestValue; //to type Integer
+
+     }
+
     /**
      * Adds a new element to the end of the principal array arr after it resizes up
      * to accomodate the new element.
@@ -89,8 +145,23 @@ public class Realistic {
     public static void main(String[] args) {
         System.out.printf("\n\nArray before removal of smallest element: %s",
                 Arrays.toString(arr));
-        System.out.printf("\nSmallest element found: %d", getSmallest());
-        System.out.printf("\nArray after removal of smallest element: %s\n\n",
-                Arrays.toString(arr));
+
+        //Call new remove method in main
+        //Will return null if array is empty
+
+        Integer removed = remove();
+
+        // Checks if value was actually removed
+        // If it was than output the removed element
+
+        if (removed != null) {
+            System.out.printf("\nRemoved element: %d", removed);
+        } else {
+            System.out.println("\nArray was empty");
+        }
+
+    
+
+
     } // method main
 } // class Realistic
